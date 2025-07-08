@@ -5,30 +5,31 @@
 
     <textBoxComponent />
 
-    <PhotoTextComponent :right="true" :img_src="img_src_1" :txt1="txt1_img1" :txt2="txt2_img1" :window_size="window_size" />
+    <PhotoTextComponent :posY="scrollY" :right="true" :img_src="img_src_1" :txt1="txt1_img1" :txt2="txt2_img1" :window_size="window_size" photo_id="photo_id_1" />
 
-    <PhotoTextComponent :right="false" :img_src="img_src_2" :txt1="txt1_img2" :txt2="txt2_img2" :window_size="window_size" />
+    <PhotoTextComponent :posY="scrollY" :right="false" :img_src="img_src_2" :txt1="txt1_img2" :txt2="txt2_img2" :window_size="window_size" photo_id="photo_id_2" />
 
-    <PhotoTextComponent :right="true" :img_src="img_src_3" :txt1="txt1_img3" :txt2="txt2_img3" :window_size="window_size" />
+    <PhotoTextComponent :posY="scrollY" :right="true" :img_src="img_src_3" :txt1="txt1_img3" :txt2="txt2_img3" :window_size="window_size" photo_id="photo_id_3" />
 
+    
+    <videoComponent 
+    :mp4="require(`@/assets/video.mp4`)" 
+    :posY="scrollY" 
+    />
+    
+    <textGraphicsComponent :posY="scrollY" />
+    
     <ContactComponent 
       :posY="scrollY"
       :data_src="contact_src"
     />
-
-    <videoComponent 
-      :mp4="require(`@/assets/video.mp4`)" 
-      :posY="scrollY" 
-      />
-
-    <textGraphicsComponent />
 
   </div>
 </template>
 
 <script>
 // import { defineAsyncComponent } from 'vue';
-import PhotoTextComponent from '@/components/PhotoTextComponent.vue';
+import PhotoTextComponent from '../components/PhotoTextComponent.vue'
 import textGraphicsComponent from '@/components/textGraphicsComponent.vue';
 import videoComponent from '@/components/videoComponent.vue'
 import textBoxComponent from '@/components/textBoxComponent.vue';

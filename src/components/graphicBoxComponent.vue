@@ -1,6 +1,6 @@
 <template>
-    <div class="graphicBoxContainer">
-        <img :src="img_src" alt="">
+    <div class="graphicBoxContainer" :class="{active_title: content_show}">
+        <img alt="" :id="photo_id">
         <div class="graphicBoxText">{{img_text}}</div>
     </div>
 </template>
@@ -8,11 +8,29 @@
 <script>
 export default {
     name: 'graphicBoxComponent',
-    props: ['img_src', 'img_text'],
+    props: ['img_src', 'img_text', 'photo_id'],
     data(){
         return {
-    
+            content_show: false,
+            div_object: 0,
         }
+    },
+    methods: {
+        lazyShowContent() {
+            this.content_show = true 
+            const picture = document.getElementById(this.photo_id)
+            picture.src = this.img_src
+        },
+    },
+    updated(){      
+        if ( this.content_show == false ){ 
+            if ( this.isInAViewPort(this.div_object) ) {
+                this.lazyShowContent()
+            }
+        }
+    },
+    mounted() {
+        this.div_object = document.getElementById(this.photo_id)
     }
 }
 </script>
@@ -25,9 +43,12 @@ img {
     border-radius: 15px 15px 0 0;
 }
 .graphicBoxContainer {
+    opacity: 0;
     width: 500px;
-    min-width: 430px;
+    width: 40vw;
+    /* min-width: 430px; */
     height: 450px;
+    height: 40vw;
     margin: 2% 2%;
     background: rgb(255, 255, 255);
     border: 0.5px black solid;
@@ -45,6 +66,11 @@ img {
     font-size: 1.5vw;
     font-family: "Raleway", sans-serif;
     align-self: center;
+}
+
+.active_title {
+    opacity: 1;
+    transition: opacity 3s;
 }
 
 @media (max-width: 1000px) {

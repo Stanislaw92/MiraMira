@@ -1,5 +1,5 @@
 <template>
-   <div class="home_text_img_container" :style="{flexDirection: flex_direction}">
+   <div class="home_text_img_container" :style="{flexDirection: flex_direction}" :class="{active_title: content_show}">
         <div class="home_text" :style="{alignItems: align_items_h1}">
             <h1 :style="{textAlign: text_align, margin: h_margin}">{{ txt1 }}</h1>
             <h3 :style="{textAlign: text_align, margin: h_margin, width: h3_width}">{{ txt2 }}</h3>
@@ -8,7 +8,7 @@
             /> -->
         </div>
         <div class="img_container">
-            <img :src=img_src alt="">
+            <img alt="" :id="photo_id">
         </div>
    </div>
 </template>
@@ -18,7 +18,7 @@
 
 export default {
     name: 'PhotoTextComponent',
-    props: ['right', 'img_src', 'txt1', 'txt2', 'window_size'],
+    props: ['right', 'img_src', 'txt1', 'txt2', 'window_size', 'posY', 'photo_id'],
     components: {
         // ButtonComponent
     },
@@ -29,11 +29,19 @@ export default {
             text_align: 'right',
             h_margin: '5% 0 0 28%',
             h3_width: '72%',
-            align_items_h1: 'flex-end'
+            align_items_h1: 'flex-end',
+            content_show: false,
+            div_object: 0,
+
             // img_src: require('../assets/pensjonat.jpg')
         }
     },
     methods: {
+        lazyShowContent() {
+            this.content_show = true 
+            const picture = document.getElementById(this.photo_id)
+            picture.src = this.img_src
+        },
         handle_resize(){
             if ( this.right && this.window_size == 0 ){
                 this.flex_direction = 'row-reverse'
@@ -58,9 +66,19 @@ export default {
     },
     updated(){
         this.handle_resize()
+        
+        if ( this.content_show == false ){ 
+            if ( this.isInAViewPort(this.div_object) ) {
+                this.lazyShowContent()
+            }
+        }
     },
     created(){
         this.handle_resize()
+        
+    },
+    mounted() {
+        this.div_object = document.getElementById(this.photo_id)
     }
 
 }
@@ -78,6 +96,7 @@ h1 {
 
 
 .home_text_img_container {
+    opacity: 0;
     margin:20% 0 20% 0;
     display: flex;
     justify-content: space-between;
@@ -121,6 +140,12 @@ h1 {
 .img_container {
     width: 50%;
 }
+
+.active_title {
+    opacity: 1;
+    transition: opacity 2s;
+}
+
 
 @media (min-width: 500px) and (max-width: 1000px) {
     .img_container {

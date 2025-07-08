@@ -4,7 +4,7 @@
         <div class="NavbarShortCuts">
             <div @click="pushPageAndSubject('/', 'about')">O nas</div>
             <div @click="pushPageAndSubject('/', 0)">Dlaczego My</div>
-            <div @click="pushPageAndSubject('/', 0)">Galeria</div>
+            <div @click="pushPageAndSubject('/gallery', 0)">Galeria</div>
             <div @click="pushPageAndSubject('/', 0)">Kontakt</div>
             <!-- <div @click="pushPageAndSubject('/', 0)">506 129 151</div> -->
         </div>
@@ -120,10 +120,15 @@ export default {
         },
         pushPageAndSubject(pageName, subject){
             this.closeNav()
-            this.$router.push(`${pageName}`)
-            setTimeout(() => {
-                this.scrollPageTo(subject)
-            }, 200); 
+            if (pageName == '/gallery') {
+                this.$router.push(`${pageName}`)
+                window.scrollTo(0, 0)
+            } else {
+                this.$router.push(`${pageName}`)
+                setTimeout(() => {
+                    this.scrollPageTo(subject)
+                }, 200); 
+            }
         },
     }
 }

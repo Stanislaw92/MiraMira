@@ -1,26 +1,27 @@
 <template>
     <div class="contact_container" id="contact">
         <div class="contact_title_style" :class="{active_title: content_show}">KONTAKT</div>
-        <div class="map_adress">
+        <div class="map_adress" >
             
              <div class="contact_map transform_animation_left" :class="{animation_active: content_show}" id="contact_photo">
                  <GoogleMap
-                     api-key="AIzaSyDr7UeohLodgG_2vmbYe7JLws6KYhZMWWM"
-                     style="width: 100%; height: 500px"
-                     :center="center"
-                     :zoom="15"
+                    v-if="content_show"
+                    api-key="AIzaSyDr7UeohLodgG_2vmbYe7JLws6KYhZMWWM"
+                    style="width: 100%; height: 500px"
+                    :center="center"
+                    :zoom="15"
                      
-                     >
+                >
                      <Marker :options="{ position: center }" />
                  </GoogleMap>
 
              </div>
             <!-- <img class="transform_animation_left" :class="{animation_active: content_show}" alt="" id="contact_photo"> -->
-            <div class="contact_text transform_animation_right" :class="{animation_active: content_show}">
-                <div class="contact_description">Zapraszamy do kontaktu. Działamy na terenie woj. mazowieckiego - Warszawa i okolice.</div>
-                <div class="contact_detail"><span><i class="fa-solid fa-location-pin icon-color"></i>&ensp;&nbsp;Adres </span>&nbsp;&emsp;Warszawa</div>
-                <div class="contact_detail"><span><i class="fa-solid fa-phone icon-color"></i>&nbsp; Telefon </span>&nbsp;&nbsp;+48 732 703 131</div>
-                <div class="contact_detail"><span><i class="fa-regular fa-envelope icon-color"></i>&nbsp; E-mail </span>&ensp;&ensp;frajdakreatywna@gmail.com</div>
+            <div class="contact_text" :class="{active_title: content_show}">
+                <div class="contact_description">Zapraszamy do kontaktu.</div>
+                <div class="contact_detail"><span><i class="fa-solid fa-location-pin icon-color"></i>&ensp;&nbsp;Adres </span>&nbsp;&emsp;Franciszka Necla 6, 83-333 Chmielno</div>
+                <div class="contact_detail"><span><i class="fa-solid fa-phone icon-color"></i>&nbsp; Telefon </span>&nbsp;&nbsp;+48 506 129 151</div>
+                <div class="contact_detail"><span><i class="fa-regular fa-envelope icon-color"></i>&nbsp; E-mail </span>&ensp;&ensp;mirkagebala@wp.pl</div>
             </div>
         </div>
 
@@ -68,7 +69,7 @@ export default {
 <style scoped>
     .contact_container {
         margin: 0% 0 0% 0;
-        padding: 5% 7% 10% 7%;
+        padding: 5% 7% 20% 7%;
         display: flex;
         justify-content:flex-end;
         align-items: center;
@@ -84,7 +85,7 @@ export default {
         border-bottom: 1px  rgba(106, 106, 106, 1) solid;
         font-size: 4vw;
         color:rgba(106, 106, 106, 1);
-        margin-bottom: 10%;
+        margin-bottom: 15%;
     }
 
     .map_adress {
@@ -107,6 +108,7 @@ export default {
     }
 
     .contact_text {
+        opacity: 0;
         width: 40%;
         display: flex;
         justify-content: space-around;
